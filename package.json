@@ -4,8 +4,8 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
-    "deploy-ropsten": "npx hardhat run scripts/deploy.ts --network ropsten",
-    "deploy-rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
+    "deploy-testnet": "npx hardhat run scripts/deploy.ts --network testnet",
+    "deploy-mainnet": "npx hardhat run scripts/deploy.ts --network mainnet",
     "test": "npx hardhat test"
   },
   "dependencies": {
