@@ -4,19 +4,28 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./FakeHero.sol";
 
-contract VBIHero is Ownable, ERC721URIStorage {
+contract VBIHero is Ownable, ERC721URIStorage, FakeHero {
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    Counters.Counter public _tokenIds;
 
     constructor() ERC721("VBI Hero", "VBIH") {}
 
-    function mintHero(string memory tokenURI) public returns (uint256) {
+    function mintHero(string memory tokenURI)
+        public
+        onlyOwner
+        returns (uint256)
+    {
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
 
         _mint(msg.sender, newTokenId);
-        _setTokenURI(newTokenId, tokenURI);
+        _setTokenURI(newTokenId, formatTokenUri(tokenURI));
         return newTokenId;
+    }
+
+    function getTokenCount() public view returns (uint256) {
+        return _tokenIds.current();
     }
 }
